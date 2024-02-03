@@ -1,18 +1,18 @@
-import sqlite3
-import socket
+import sqlite3  # Import the sqlite3 module
+import socket  # Import the socket module
 
 class ManageDevices:
     def __init__(self, db_file):
         # Initialize the ManageDevices class with a SQLite database file.
         self.db_file = db_file
-        self.conn = sqlite3.connect(db_file)
-        self.cursor = self.conn.cursor()
+        self.conn = sqlite3.connect(db_file)  # Connect to the SQLite database
+        self.cursor = self.conn.cursor()  # Create a cursor object to interact with the database
 
     def add_device(self, data):
         try:
             # Insert device information into the Routers table.
             self.cursor.execute("INSERT INTO Routers (name, ip_address, user, password) VALUES (?, ?, ?, ?)", data)
-            self.conn.commit()
+            self.conn.commit()  # Commit changes to the database
             return "Device added successfully."
         except sqlite3.IntegrityError:
             # Handle integrity error if IP address is not unique.
@@ -22,7 +22,7 @@ class ManageDevices:
         try:
             # Remove a device based on its IP address from the Routers table.
             self.cursor.execute("DELETE FROM Routers WHERE ip_address=?", (ip_address,))
-            self.conn.commit()
+            self.conn.commit()  # Commit changes to the database
             return "Device removed successfully."
         except sqlite3.Error:
             # Handle error if device not found or unable to remove.
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # Set up a server socket and bind it to localhost on port 12345.
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('localhost', 12345))
-    server.listen(5)
+    server.listen(5)  # Listen for incoming connections
 
     # Create an instance of the ManageDevices class with a specific database file.
     manage_devices = ManageDevices('/home/nigel/Desktop/AidanBugeja.db')
@@ -78,4 +78,5 @@ if __name__ == "__main__":
         print("Connection from", addr)
 
         # Handle the client in a separate function.
-        handle_client(conn, manage_devices)
+        handle_client(conn, manage_devices)  # Call handle_client function to handle client requests
+
