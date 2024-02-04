@@ -79,4 +79,3 @@ if __name__ == "__main__":
 
         # Handle the client in a separate function.
         handle_client(conn, manage_devices)  # Call handle_client function to handle client requests
-
